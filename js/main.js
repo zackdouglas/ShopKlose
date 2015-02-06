@@ -9,6 +9,7 @@
   var autocomplete;
   var directions_service;
   var directions_renderer;
+  var ga;
 
 function init() {
   user_loc = new google.maps.LatLng(34.166711, -118.375128);
@@ -69,6 +70,7 @@ function handlePlace (place) {
   place.marker = marker;
   place.infowindow = infowindow;
   google.maps.event.addListener(marker, 'click', function showInfoGetDirections () {
+    ga&&ga('send', 'show-directions');
     directions_service.route(
       {
         origin: user_loc,
@@ -161,10 +163,7 @@ function removeThing(name, place, _undefined) {
 
 function makeAddPlace (place, marker, infowindow) {
   return function addPlace (ev) {
-    console.dir(ev);
-    console.dir(place);
-    console.dir(marker);
-    console.dir(infowindow);
+    ga&&ga('send', 'add-place');
     var distance = -1;
     directions_service.route(
       {
@@ -201,4 +200,7 @@ function makeAddPlace (place, marker, infowindow) {
 }
 
 google.maps.event.addDomListener(window, 'load', init);
+win.setGa = function (_ga) {
+  ga = _ga;
+}
 }(window));
