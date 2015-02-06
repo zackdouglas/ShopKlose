@@ -17,6 +17,18 @@ function init() {
     user_loc = null;
     user_loc = new google.maps.LatLng(l.coords.latitude, l.coords.longitude);
     map && map.setCenter(user_loc);
+    var marker = new google.maps.Marker({
+      map: map,
+      anchorPoint: new google.maps.Point(0, -29)
+    });
+    marker.setPosition(user_loc);
+    marker.setIcon({
+      url: '/img/home.png',
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    });
   });
   
   map = new google.maps.Map(document.getElementById('map-canvas'), {
